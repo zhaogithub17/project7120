@@ -1,4 +1,4 @@
-
+#Zhao Lin, CISC7120
 #LEXER
 
 #Token types
@@ -36,7 +36,7 @@ class Lexer(object):
         self.current_char = self.text[self.pos]
 
     def error(self):
-        raise Exception('Error')
+        raise Exception('Error, Invalid statement')
 
     def advance(self):
         """Advance the `pos` pointer and set the `current_char` variable."""
@@ -174,7 +174,7 @@ class Parser(object):
         self.current_token = self.lexer.get_next_token()
 
     def error(self):
-        raise Exception('Error')
+        raise Exception('Error, Invalid statement.')
 
     def eat(self, token_type):
         # compare the current token type with the passed token
@@ -310,9 +310,7 @@ class Parser(object):
         return node
 
 
-
 #INTERPRETER                                                               
-
 
 class NodeVisitor(object):
     def visit(self, node):
@@ -341,21 +339,6 @@ class NodeVisitor(object):
             raise NameError(repr(var_name))
         else:
             return val
-
-class symbole_table(object):
-    def __init__(self, ID, value):
-        self.type = ID
-        self.value = value
-
-    def __str__(self):
-        return 'symbole({ID}, {value})'.format(
-            type=self.ID,
-            value=repr(self.value)
-        )
-
-    def __repr__(self):
-        return self.__str__()
-
 
 class Interpreter(NodeVisitor):
     def __init__(self, parser):
